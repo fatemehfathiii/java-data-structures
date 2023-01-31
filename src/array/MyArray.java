@@ -105,10 +105,17 @@ public class MyArray implements Array {
         var newCapacity = oldCapacity + (oldCapacity / 2);
 
         if (newCapacity - mainCapacity < 0) {
-
             newCapacity = mainCapacity;
         }
-        ELEMENTS = Arrays.copyOf(ELEMENTS, newCapacity);
+
+        int[] newArray = new int[newCapacity];
+
+        for (int i = 0; i < size; i++) {
+
+            newArray[i] = ELEMENTS[i];
+        }
+
+        ELEMENTS = newArray;
     }
 
     //helping method for shifting element when an element delete
