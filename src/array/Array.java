@@ -1,11 +1,11 @@
 package array;
 
-public interface Array {
-    void add(int element);
-    void remove(int element);
+public interface Array<T> {
+    void add(T element);
+    void remove(T element);
     void removeByIndex(int index);
-    int indexOf(int element);
-    boolean contains(int element);
+    int indexOf(T element);
+    boolean contains(T element);
     int size();
     void print();
 }
