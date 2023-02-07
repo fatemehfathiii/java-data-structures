@@ -1,6 +1,6 @@
 package array;
 
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class MyArray<T> implements Array<T> {
     @Override
     public void removeByIndex(int index) {
 
-        if (index < size && index > 0) {
+        if (index < size && index >= 0) {
 
             for (int i = index; i < (size - 1); i++) {
                 ELEMENTS[i] = ELEMENTS[i + 1];
@@ -63,10 +63,13 @@ public class MyArray<T> implements Array<T> {
     public int indexOf(T element) {
 
         for (int i = 0; i < size; i++) {
-            if (element == ELEMENTS[i]) {
+
+            if (element.equals(ELEMENTS[i])) {
                 return i;
             }
         }
+//        ArrayList<Double> m = new ArrayList<>();
+//        m.indexOf()
         return -1;
     }
 
