@@ -1,8 +1,5 @@
 package array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class MyArray<T> implements Array<T> {
     private static final int DEFAULT_CAPACITY = 10;
@@ -27,7 +24,7 @@ public class MyArray<T> implements Array<T> {
 
     @Override
     public void add(T element) {
-        int mainCapacity = size+1 ;
+        int mainCapacity = size + 1;
         if ((mainCapacity - ELEMENTS.length) > 0) {
             grow(mainCapacity);
         }
@@ -48,7 +45,7 @@ public class MyArray<T> implements Array<T> {
             for (int i = index; i < (size - 1); i++) {
                 ELEMENTS[i] = ELEMENTS[i + 1];
             }
-            ELEMENTS[size-1] = null ;
+            ELEMENTS[size - 1] = null;
             size--;
 
         } else {
@@ -63,19 +60,16 @@ public class MyArray<T> implements Array<T> {
     public int indexOf(T element) {
 
         for (int i = 0; i < size; i++) {
-
             if (element.equals(ELEMENTS[i])) {
                 return i;
             }
         }
-//        ArrayList<Double> m = new ArrayList<>();
-//        m.indexOf()
         return -1;
     }
 
     @Override
     public boolean contains(T element) {
-        return  indexOf(element) > -1 ;
+        return indexOf(element) > -1;
     }
 
     @Override
@@ -86,8 +80,14 @@ public class MyArray<T> implements Array<T> {
 
     @Override
     public void print() {
-        var list = Arrays.stream(ELEMENTS).filter(Objects::nonNull).toArray();
-        System.out.println(String.join(",", Arrays.toString(list)));
+        var arrayString = new StringBuilder();
+        arrayString.append("[");
+        for (int i = 0; i < size; i++) {
+            arrayString.append(ELEMENTS[i]);
+            arrayString.append(",");
+        }
+        arrayString.append("]");
+        System.out.println(arrayString);
     }
 
 

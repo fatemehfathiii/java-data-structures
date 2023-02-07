@@ -13,19 +13,19 @@ public class Main {
         myArray.add(6.7);
         myArray.add(3.9);
         myArray.print();
-        System.out.println(myArray.size());
-        myArray.add(78.2);
-        myArray.add(3.5);
-        myArray.print();
-        System.out.println(myArray.size());
-        myArray.removeByIndex(1);
-        myArray.print();
-        System.out.println(myArray.size());
-        myArray.remove(78.2);
-        myArray.print();
-        System.out.println(myArray.size());
-        System.out.println(myArray.contains(6.7));
-        System.out.println(myArray.size());
+//        System.out.println(myArray.size());
+//        myArray.add(78.2);
+//        myArray.add(3.5);
+//        myArray.print();
+//        System.out.println(myArray.size());
+//        myArray.removeByIndex(1);
+//        myArray.print();
+//        System.out.println(myArray.size());
+//        myArray.remove(78.2);
+//        myArray.print();
+//        System.out.println(myArray.size());
+//        System.out.println(myArray.contains(6.7));
+//        System.out.println(myArray.size());
 
     }
 }
