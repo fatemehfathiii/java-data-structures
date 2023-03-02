@@ -50,18 +50,28 @@ public class MySinglyLinkedList<E> implements List<E> {
     public void deleteLast() {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
 
-            var prevLastNode = first;
-            while (prevLastNode.getNext() != last) {
-                prevLastNode = prevLastNode.getNext();
-            }
-            prevLastNode.setNext(null);
-            last = prevLastNode;
-            size--;
+        var prevLastNode = first;
+        while (prevLastNode.getNext() != last) {
+            prevLastNode = prevLastNode.getNext();
+        }
+        prevLastNode.setNext(null);
+        last = prevLastNode;
+        size--;
     }
 
     @Override
     public void remove(E element) {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
+
+        if (element == first.getValue()) {
+            deleteFirst();
+            return;
+        }
+
+        if (element == last.getValue()) {
+            deleteLast();
+            return;
+        }
 
         var requestedNode = first;
         var prevRequestedNode = first;
