@@ -8,15 +8,10 @@ public class MySinglyLinkedList<E> implements List<E> {
 
     private Node<E> first;
     private Node<E> last;
-
     private int size;
 
-
-    //this method adds node to the front of the list
-    @Override
-    public void add(E element) {
-        Node<E> newNode = new Node<>(element);
-
+    public void addFirst(E value) {
+        var newNode = new Node<>(value);
         if (isEmpty()) {
             first = last = newNode;
         } else {
@@ -26,11 +21,8 @@ public class MySinglyLinkedList<E> implements List<E> {
         size++;
     }
 
-
-    //this methode adds node to end of the list
-    public void addLast(E element) {
-        Node<E> newNode = new Node<>(element);
-
+    public void addLast(E value) {
+        var newNode = new Node<>(value);
         if (isEmpty()) {
             first = last = newNode;
         } else {
@@ -40,23 +32,61 @@ public class MySinglyLinkedList<E> implements List<E> {
         size++;
     }
 
-    //this method remove a node that user wants
+    @Override
+    public void add(E element) {
+        addFirst(element);
+    }
+
+
+    public void deleteFirst() {
+        if (checkEmptyListAndDeleteSingleNode() == 1) return;
+        var next = first.getNext();
+        first.setNext(null);
+        first = next;
+        size--;
+
+    }
+
+    public void deleteLast() {
+        if (checkEmptyListAndDeleteSingleNode() == 1) return;
+
+            var prevLastNode = first;
+            while (prevLastNode.getNext() != last) {
+                prevLastNode = prevLastNode.getNext();
+            }
+            prevLastNode.setNext(null);
+            last = prevLastNode;
+            size--;
+    }
+
     @Override
     public void remove(E element) {
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-
-        if (first == last) {
-            deleteFirst();
-        }
+        if (checkEmptyListAndDeleteSingleNode() == 1) return;
 
         var requestedNode = first;
         var prevRequestedNode = first;
 
-        while (!requestedNode.contain(element)) {
+        for (int i = 0; i < size; i++) {
 
-            //why do we use return ?
-            if (requestedNode.getNext() == null) return;
+            if (requestedNode.getValue().equals(element)) {
+                prevRequestedNode.setNext(requestedNode.getNext());
+                requestedNode.setNext(null);
+                break;
+            }
+            prevRequestedNode = requestedNode;
+            requestedNode = requestedNode.getNext();
+        }
+        size--;
+    }
 
+    @Override
+    public void removeByIndex(int index) {
+        if (checkEmptyListAndDeleteSingleNode() == 1) return;
+        var step = 0;
+        var requestedNode = first;
+        var prevRequestedNode = first;
+
+        while (step != index) {
             prevRequestedNode = requestedNode;
             requestedNode = requestedNode.getNext();
         }
@@ -65,118 +95,34 @@ public class MySinglyLinkedList<E> implements List<E> {
         size--;
     }
 
-    //this method remove node based on their index
-    @Override
-    public void removeByIndex(int index) {
-
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
-
-        if (first == last) {
-            deleteFirst();
-            return;
-        }
-
-        var counter = 0;
-        var requestedNode = first;
-        var prevRequestedNode = first;
-
-        while (index != counter) {
-
-            if (requestedNode.getNext() == null) return;
-
-            prevRequestedNode = requestedNode;
-            requestedNode = requestedNode.getNext();
-            counter++;
-        }
-
-        prevRequestedNode.setNext(prevRequestedNode.getNext());
-        size--;
-
-    }
-
-    //this method remove node from the front of the list
-    public void deleteFirst() {
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-
-        if (first == last) {
-            first = last = null;
-            size--;
-            return;
-        }
-
-        first.setNext(null);
-        first = first.getNext();
-    }
-
-    //this method remove node from the end of the list
-    public void deleteLast() {
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-
-        if (first == last) {
-            first = last = null;
-            size--;
-            return;
-        }
-
-        var beforeLastNode = first;
-
-        for (; beforeLastNode != null; beforeLastNode = beforeLastNode.getNext()) {
-            if (beforeLastNode.getNext() == last) break;
-        }
-
-        assert beforeLastNode != null;
-        last = beforeLastNode;
-        beforeLastNode.setNext(null);
-        size--;
-    }
-
     @Override
     public int indexOf(E element) {
-        var index = 0;
-        for (var node = first; node.getNext() != null; node = node.getNext()) {
+        if (isEmpty()) throw new NoSuchElementException("list is empty!");
+        var requestedNode = first;
+        for (int step = 0; step < size; step++) {
 
-            if (node.contain(element)) {
-                return index;
+            if (requestedNode.getValue().equals(element)) {
+                return step;
             }
-            index++;
+            requestedNode = requestedNode.getNext();
         }
         return -1;
     }
 
     @Override
     public E get(int index) {
+        if (isEmpty()) throw new NoSuchElementException("list is empty!");
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
 
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        var step = 0;
+        var requestedNode = first;
 
-        var counter = 0;
-        var node = first;
-        for (; counter != index; node = node.getNext()) {
-            counter++;
+        while (step != index) {
+            requestedNode = requestedNode.getNext();
+            step++;
         }
-        return node.getData();
+        return requestedNode.getValue();
     }
-
-    public void reverse() {
-        if (isEmpty()) throw new NoSuchElementException("list is empty");
-        if (first == last) return;
-
-        var backNode = first;
-        var frontNode = first.getNext();
-
-        while (frontNode.getNext() != null ){
-            var nextFrontNode=frontNode.getNext();
-
-            backNode=frontNode;
-
-        }
-
-
-        }
-
-
 
     @Override
     public boolean contains(E element) {
@@ -196,11 +142,11 @@ public class MySinglyLinkedList<E> implements List<E> {
     @Override
     public String toString() {
         if (isEmpty()) return "[]";
-        if (first == last) return "[%s]".formatted(first.getData());
+        if (first == last) return "[%s]".formatted(first.getValue());
 
         var stringBuilder = new StringBuilder("[");
-        for (var node = first; node!= null; node = node.getNext()) {
-            stringBuilder.append(node.getData());
+        for (var node = first; node != null; node = node.getNext()) {
+            stringBuilder.append(node.getValue());
             if (node != last) stringBuilder.append(",");
         }
         stringBuilder.append("]");
@@ -210,11 +156,24 @@ public class MySinglyLinkedList<E> implements List<E> {
 
     public Object[] toArray() {
         var array = new Object[size];
-        int index = 0;
-        for (var node = first; node != null; node = node.getNext()) {
-            array[index++] = node.getData();
+        var index = 0;
+        for (var node = first; node.getNext() != null; node = node.getNext()) {
+            array[index++] = node;
         }
         return array;
+    }
+
+
+    //helping method for check empty list and delete single node lists
+    private int checkEmptyListAndDeleteSingleNode() {
+        if (isEmpty()) throw new NoSuchElementException("list is empty!");
+
+        if (first == last) {
+            first = last = null;
+            size--;
+            return 1;
+        }
+        return 0;
     }
 
     //helping method for check if list is empty or not
