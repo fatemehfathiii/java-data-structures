@@ -6,27 +6,27 @@ import java.util.NoSuchElementException;
 
 public class MySinglyLinkedList<E> implements List<E> {
 
-    private Node<E> first;
-    private Node<E> last;
+    private SNode<E> first;
+    private SNode<E> last;
     private int size;
 
     public void addFirst(E value) {
-        var newNode = new Node<>(value);
+        var newNode = new SNode<>(value);
         if (isEmpty()) {
             first = last = newNode;
         } else {
-            newNode.setNext(first);
+            newNode.next = first;
             first = newNode;
         }
         size++;
     }
 
     public void addLast(E value) {
-        var newNode = new Node<>(value);
+        var newNode = new SNode<>(value);
         if (isEmpty()) {
             first = last = newNode;
         } else {
-            last.setNext(newNode);
+            last.next = newNode;
             last = newNode;
         }
         size++;
@@ -40,8 +40,8 @@ public class MySinglyLinkedList<E> implements List<E> {
 
     public void deleteFirst() {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
-        var next = first.getNext();
-        first.setNext(null);
+        var next = first.next;
+        first.next = null;
         first = next;
         size--;
 
@@ -51,10 +51,10 @@ public class MySinglyLinkedList<E> implements List<E> {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
 
         var prevLastNode = first;
-        while (prevLastNode.getNext() != last) {
-            prevLastNode = prevLastNode.getNext();
+        while (prevLastNode.next != last) {
+            prevLastNode = prevLastNode.next;
         }
-        prevLastNode.setNext(null);
+        prevLastNode.next = null;
         last = prevLastNode;
         size--;
     }
@@ -63,12 +63,12 @@ public class MySinglyLinkedList<E> implements List<E> {
     public void remove(E element) {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
 
-        if (element == first.getValue()) {
+        if (element == first.value) {
             deleteFirst();
             return;
         }
 
-        if (element == last.getValue()) {
+        if (element == last.value) {
             deleteLast();
             return;
         }
@@ -78,13 +78,13 @@ public class MySinglyLinkedList<E> implements List<E> {
 
         for (int i = 0; i < size; i++) {
 
-            if (requestedNode.getValue().equals(element)) {
-                prevRequestedNode.setNext(requestedNode.getNext());
-                requestedNode.setNext(null);
+            if (requestedNode.value.equals(element)) {
+                prevRequestedNode.next = requestedNode.next;
+                requestedNode.next = null;
                 break;
             }
             prevRequestedNode = requestedNode;
-            requestedNode = requestedNode.getNext();
+            requestedNode = requestedNode.next;
         }
         size--;
     }
@@ -98,10 +98,11 @@ public class MySinglyLinkedList<E> implements List<E> {
 
         while (step != index) {
             prevRequestedNode = requestedNode;
-            requestedNode = requestedNode.getNext();
+            requestedNode = requestedNode.next;
+            step++;
         }
 
-        prevRequestedNode.setNext(requestedNode.getNext());
+        prevRequestedNode.next = requestedNode.next;
         size--;
     }
 
@@ -111,27 +112,26 @@ public class MySinglyLinkedList<E> implements List<E> {
         var requestedNode = first;
         for (int step = 0; step < size; step++) {
 
-            if (requestedNode.getValue().equals(element)) {
+            if (requestedNode.value.equals(element)) {
                 return step;
             }
-            requestedNode = requestedNode.getNext();
+            requestedNode = requestedNode.next;
         }
         return -1;
     }
 
     @Override
     public E get(int index) {
-        if (isEmpty()) throw new NoSuchElementException("list is empty!");
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
 
         var step = 0;
         var requestedNode = first;
 
         while (step != index) {
-            requestedNode = requestedNode.getNext();
+            requestedNode = requestedNode.next;
             step++;
         }
-        return requestedNode.getValue();
+        return (E) requestedNode.value;
     }
 
     @Override
@@ -152,11 +152,11 @@ public class MySinglyLinkedList<E> implements List<E> {
     @Override
     public String toString() {
         if (isEmpty()) return "[]";
-        if (first == last) return "[%s]".formatted(first.getValue());
+        if (first == last) return "[%s]".formatted(first.value);
 
         var stringBuilder = new StringBuilder("[");
-        for (var node = first; node != null; node = node.getNext()) {
-            stringBuilder.append(node.getValue());
+        for (var node = first; node != null; node = node.next) {
+            stringBuilder.append(node.value);
             if (node != last) stringBuilder.append(",");
         }
         stringBuilder.append("]");
@@ -167,7 +167,7 @@ public class MySinglyLinkedList<E> implements List<E> {
     public Object[] toArray() {
         var array = new Object[size];
         var index = 0;
-        for (var node = first; node.getNext() != null; node = node.getNext()) {
+        for (var node = first; node.next != null; node = node.next) {
             array[index++] = node;
         }
         return array;
@@ -189,5 +189,15 @@ public class MySinglyLinkedList<E> implements List<E> {
     //helping method for check if list is empty or not
     private boolean isEmpty() {
         return size == 0;
+    }
+
+    private static class SNode<E> {
+        private final E value;
+        private SNode<E> next;
+
+        public SNode(E data) {
+            this.value = data;
+            this.next = null;
+        }
     }
 }
