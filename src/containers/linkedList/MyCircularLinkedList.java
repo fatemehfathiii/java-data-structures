@@ -55,4 +55,54 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
         super.remove(element);
     }
 
+//    public void reverse() {
+//
+//        if (isEmpty()) return;
+//        if (size == 1) return;
+//
+//        Node<E> prevNode = first;
+//        var selectedNode = first.next;
+//
+//        for (int i = 0; i < size; i++) {
+//            var nextNode = selectedNode.next;
+//
+//            selectedNode.next = prevNode;
+//            prevNode = selectedNode;
+//            selectedNode = nextNode;
+//        }
+//
+//        last = first;
+//        last.next=first;
+//        first.prev=first;
+//    }
+
+    public void print() {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        var stringBuilder = new StringBuilder("[");
+
+        for (var node = first; node.next != first; node = node.next) {
+            stringBuilder.append(node.value);
+
+            stringBuilder.append(",");
+        }
+
+        stringBuilder.append("]");
+
+        return stringBuilder.toString();
+    }
+
+    public Object[] toArray() {
+        var array = new Object[size];
+        var index = 0;
+        for (var node = first; node.next != first; node = node.next) {
+            array[index++] = node;
+        }
+        return array;
+    }
+
 }

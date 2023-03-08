@@ -82,31 +82,24 @@ public class MyLinkedList<E> {
         return size;
     }
 
-    public void print() {
-        System.out.println(this);
-    }
 
-    public String toString() {
-        if (isEmpty()) return "[]";
-        if (first == last) return "[%s]".formatted(first.value);
+    public E getKthFromTheEnd(int k) {
+        if (isEmpty()) throw new IllegalArgumentException();
 
-        var stringBuilder = new StringBuilder("[");
-        for (var node = first; node != null; node = node.next) {
-            stringBuilder.append(node.value);
-            if (node != last) stringBuilder.append(",");
+        var x = first;
+        var y = first;
+        for (int i = 0; i < k - 1; i++) {
+            x = x.next;
+
+            if (x == null) throw new IllegalArgumentException();
         }
-        stringBuilder.append("]");
 
-        return stringBuilder.toString();
-    }
-
-    public Object[] toArray() {
-        var array = new Object[size];
-        var index = 0;
-        for (var node = first; node.next != null; node = node.next) {
-            array[index++] = node;
+        while (x != last) {
+            y = y.next;
+            x = x.next;
         }
-        return array;
+        return y.getValue();
+
     }
 
     boolean isEmpty() {
