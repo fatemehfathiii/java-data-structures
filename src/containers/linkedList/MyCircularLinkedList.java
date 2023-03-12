@@ -7,13 +7,14 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
     @Override
     public void add(E element) {
         var newNode = new Node<>(element);
+
         if (isEmpty()) {
             first = last = newNode;
         } else {
             first.prev = newNode;
             newNode.next = first;
             first = newNode;
-            last.next = newNode;
+            last.next = first;
         }
         size++;
     }
@@ -41,7 +42,8 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
 
     @Override
     public void remove(E element) {
-        if (checkEmptyListAndDeleteSingleNode() == 0) return;
+
+        if (checkEmptyListAndDeleteSingleNode() == 1) return;
 
         if (first.value.equals(element)) {
             deleteFirst();
@@ -52,10 +54,29 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
             deleteLast();
             return;
         }
+
         super.remove(element);
     }
 
-//    public void reverse() {
+    @Override
+    public void removeByIndex(int index) {
+        if (index == 0) {
+            deleteFirst();
+            return;
+        }
+
+        if (index == size - 1) {
+            deleteLast();
+            return;
+        }
+      super.removeByIndex(index);
+    }
+
+    public void print() {
+        System.out.println(this);
+    }
+
+    //    public void reverse() {
 //
 //        if (isEmpty()) return;
 //        if (size == 1) return;
@@ -76,33 +97,6 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
 //        first.prev=first;
 //    }
 
-    public void print() {
-        System.out.println(this);
-    }
 
-    @Override
-    public String toString() {
-        super.toString();
-        var stringBuilder = new StringBuilder("[");
-
-        for (var node = first; node.next != first; node = node.next) {
-            stringBuilder.append(node.value);
-
-            stringBuilder.append(",");
-        }
-
-        stringBuilder.append("]");
-
-        return stringBuilder.toString();
-    }
-
-    public Object[] toArray() {
-        var array = new Object[size];
-        var index = 0;
-        for (var node = first; node.next != first; node = node.next) {
-            array[index++] = node;
-        }
-        return array;
-    }
 
 }

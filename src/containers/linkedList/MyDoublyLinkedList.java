@@ -28,6 +28,11 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         size++;
     }
 
+    @Override
+    public void add(E element) {
+        addFirst(element);
+    }
+
     public void deleteFirst() {
         if (checkEmptyListAndDeleteSingleNode() == 1) return;
         var second = first.next;
@@ -44,6 +49,20 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         last.prev = null;
         last = prevLastNode;
         size--;
+    }
+
+    @Override
+    public void removeByIndex(int index) {
+
+        if (index == 0) {
+            deleteFirst();
+            return;
+        }
+        if (index == size - 1) {
+            deleteLast();
+            return;
+        }
+        super.removeByIndex(index);
     }
 
     public void reverse() {
@@ -83,36 +102,11 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         super.remove(element);
     }
 
-    @Override
-    public void add(E element) {
-        addFirst(element);
-    }
+
     @Override
     public void print() {
         System.out.println(this);
     }
-    @Override
-    public String toString() {
-        if (isEmpty()) return "[]";
-        if (first == last) return "[%s]".formatted(first.value);
 
-        var stringBuilder = new StringBuilder("[");
-        for (var node = first; node != null; node = node.next) {
-            stringBuilder.append(node.value);
-            if (node != last) stringBuilder.append(",");
-        }
-        stringBuilder.append("]");
-
-        return stringBuilder.toString();
-    }
-
-    public Object[] toArray() {
-        var array = new Object[size];
-        var index = 0;
-        for (var node = first; node.next != null; node = node.next) {
-            array[index++] = node;
-        }
-        return array;
-    }
 
 }
