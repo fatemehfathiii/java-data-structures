@@ -8,53 +8,73 @@ import java.util.LinkedList;
 
 public class MyHashMap<K extends Number, V> implements Map<K, V> {
 
-    private final LinkedList<HashNode<K, V>>[] objects;
-
+    private LinkedList<Entry>[] entries;
     private int size;
 
     public MyHashMap() {
-        this.objects = new LinkedList[10];
+        this.entries = new LinkedList[5];
     }
 
     @Override
     public void put(K key, V value) {
-        var index = myHashFunction(key);
-        var pair = new HashNode<>(key, value);
+        var index = hash(key);
+        var bucket = getBucket(key);
+        var newEntry = new Entry<>(key, value);
 
-        if (objects[index] == null) {
-            objects[index] = new LinkedList<>();
+        if (bucket == null) {
+            entries[index] = new LinkedList<>();
+            entries[index].addLast(newEntry);
+            return;
         }
-
-        objects[index].addLast(pair);
-        size++;
+        if (bucket.stream().anyMatch(entry -> entry.key.equals(key))) {
+            bucket.stream().filter(entry -> entry.key.equals(key)).findFirst().map(entry -> entry.value = value);
+            return;
+        }
+        bucket.addLast(newEntry);
     }
 
     @Override
-    public V get(K key) {
-        var index = myHashFunction(key);
-        var bucket = objects[index].stream().filter(v -> v.key.equals(key)).findFirst();
-        return bucket.map(kvHashNode -> kvHashNode.value).orElse(null);
+    public Object get(K key) {
+        var bucket = getBucket(key);
+        if (bucket == null) throw new IllegalStateException();
+
+        return bucket.stream()
+                .filter(e -> e.key.equals(key))
+                .findFirst().orElseThrow(IllegalStateException::new).value;
     }
 
-    private int myHashFunction(K key) {
-        return (int) key % objects.length;
+
+    @Override
+    public void remove(K key) {
+        var bucket = getBucket(key);
+        if (bucket == null) throw new IllegalStateException();
+        if (!(bucket.removeIf(entry -> entry.key.equals(key)))) throw new IllegalStateException();
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     @Override
     public String toString() {
-        return "MyHashMap:%s".formatted(Arrays.toString(objects));
-    }
-    @Override
-    public int size(){
-        return size;
+        return "MyHashMap:%s".formatted(Arrays.toString(entries));
     }
 
 
-    private static class HashNode<K, V> {
+    private int hash(K key) {
+        return (int) key % entries.length;
+    }
+
+    private LinkedList<Entry> getBucket(K key) {
+        return entries[hash(key)];
+    }
+
+    private static class Entry<K, V> {
         K key;
         V value;
 
-        public HashNode(K key, V value) {
+        public Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }
