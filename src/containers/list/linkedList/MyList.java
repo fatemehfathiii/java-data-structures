@@ -1,9 +1,10 @@
-package containers.linkedList;
+package containers.list.linkedList;
+
+import containers.list.List;
 
 import java.util.NoSuchElementException;
 
-public abstract class MyList<E> {
-
+public abstract class MyList<E> implements List<E> {
     Node<E> first;
     Node<E> last;
     int size;
@@ -21,14 +22,6 @@ public abstract class MyList<E> {
         return -1;
     }
 
-    public boolean contains(E element) {
-        return indexOf(element) > -1;
-    }
-
-    public int size() {
-        return size;
-    }
-
 
     public E get(int index) {
         if (isEmpty()) throw new NoSuchElementException("list is empty!");
@@ -43,23 +36,12 @@ public abstract class MyList<E> {
         return requestedNode.value;
     }
 
+    public boolean contains(E element) {
+        return indexOf(element) > -1;
+    }
 
-    public E getKthFromTheEnd(int k) {
-        if (isEmpty()) throw new IllegalArgumentException();
-
-        var x = first;
-        var y = first;
-        for (int i = 0; i < k - 1; i++) {
-            x = x.next;
-
-            if (x == null) throw new IllegalArgumentException();
-        }
-
-        while (x != last) {
-            y = y.next;
-            x = x.next;
-        }
-        return y.getValue();
+    public int size() {
+        return size;
     }
 
     public String toString() {
@@ -82,7 +64,7 @@ public abstract class MyList<E> {
     public Object[] toArray() {
         var array = new Object[size];
         var node = first;
-        for (int index = 0; index < size;) {
+        for (int index = 0; index < size; ) {
             array[index++] = node;
             node = node.next;
         }
@@ -104,4 +86,26 @@ public abstract class MyList<E> {
         }
         return 0;
     }
+
+    public E kthFromTheEnd(int k) {
+        if (isEmpty()) throw new IllegalStateException();
+
+        var a = first;
+        var b = first;
+
+        for (int i = 0; i < k - 1; i++) {
+            b = b.next;
+        }
+
+        if (b == null) throw new IllegalStateException();
+
+        while (b != last){
+            a=a.next;
+            b=b.next;
+        }
+
+        return a.value;
+    }
+
+    public abstract void revers();
 }

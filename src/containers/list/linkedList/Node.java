@@ -1,4 +1,4 @@
-package containers.linkedList;
+package containers.list.linkedList;
 
 public class Node <E>{
     Node<E> prev;

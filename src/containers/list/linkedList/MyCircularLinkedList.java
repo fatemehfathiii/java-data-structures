@@ -1,6 +1,6 @@
-package containers.linkedList;
+package containers.list.linkedList;
 
-import containers.List;
+import containers.list.List;
 
 public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> {
 
@@ -39,7 +39,6 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
         size--;
     }
 
-
     @Override
     public void remove(E element) {
 
@@ -49,12 +48,10 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
             deleteFirst();
             return;
         }
-
         if (last.value.equals(element)) {
             deleteLast();
             return;
         }
-
         super.remove(element);
     }
 
@@ -64,39 +61,63 @@ public class MyCircularLinkedList<E> extends MyLinkedList<E> implements List<E> 
             deleteFirst();
             return;
         }
-
         if (index == size - 1) {
             deleteLast();
             return;
         }
-      super.removeByIndex(index);
+        super.removeByIndex(index);
     }
+
+    @Override
+    public void revers(){
+        if (isEmpty()) return;
+        if (first==last) return;
+        var current = first;
+        Node<E> temp;
+
+        while (current!=last){
+            temp =current.next;
+
+            current.next = current.prev;
+            current.prev = temp;
+
+            current = current.next;
+        }
+
+        current.next=current.prev;
+        current.prev = first;
+
+        temp =first;
+        first = last;
+        last=temp;
+    }
+
+//    @Override
+//    public void revers() {
+//
+//        if (isEmpty()) return;
+//        if (first == last) return;
+//
+//        Node<E> current = first;
+//        Node<E> temp;
+//
+//        do {
+//             temp=current.next;
+//
+//             current.next = current.prev;
+//             current.prev=temp;
+//
+//             current = current.next;
+//        }while (current != first);
+//
+//        temp = first;
+//        first = last;
+//        last =temp;
+//    }
 
     public void print() {
         System.out.println(this);
     }
-
-    //    public void reverse() {
-//
-//        if (isEmpty()) return;
-//        if (size == 1) return;
-//
-//        Node<E> prevNode = first;
-//        var selectedNode = first.next;
-//
-//        for (int i = 0; i < size; i++) {
-//            var nextNode = selectedNode.next;
-//
-//            selectedNode.next = prevNode;
-//            prevNode = selectedNode;
-//            selectedNode = nextNode;
-//        }
-//
-//        last = first;
-//        last.next=first;
-//        first.prev=first;
-//    }
-
 
 
 }

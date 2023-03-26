@@ -1,7 +1,7 @@
-package containers.arrayList;
+package containers.list.arrayList;
 
 
-import containers.List;
+import containers.list.List;
 
 public class MyArrayList<E> implements List<E> {
     private static final int DEFAULT_CAPACITY = 10;

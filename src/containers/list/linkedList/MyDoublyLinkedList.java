@@ -1,6 +1,6 @@
-package containers.linkedList;
+package containers.list.linkedList;
 
-import containers.List;
+import containers.list.List;
 
 public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
 
@@ -53,7 +53,6 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
 
     @Override
     public void removeByIndex(int index) {
-
         if (index == 0) {
             deleteFirst();
             return;
@@ -64,27 +63,6 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         }
         super.removeByIndex(index);
     }
-
-    public void reverse() {
-        if (isEmpty()) return;
-        if (size == 1) return;
-
-        Node<E> prevNode = first;
-        var selectedNode = first.next;
-
-        while (selectedNode != null) {
-            var nextNode = selectedNode.next;
-
-            selectedNode.next = prevNode;
-            prevNode = selectedNode;
-            selectedNode = nextNode;
-        }
-        last = first;
-        last.next = null;
-
-        first = prevNode;
-    }
-
 
     @Override
     public void remove(E element) {
@@ -102,11 +80,31 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         super.remove(element);
     }
 
+    @Override
+    public void revers(){
+        if (isEmpty()) return;
+        if (first==last) return;
+
+        Node<E> temp;
+        var current = first;
+
+        while (current != null){
+
+            temp = current.next;
+
+            current.next =current.prev;
+            current.prev = temp;
+
+            current = current.prev;
+        }
+
+        temp = first;
+        first = last;
+        last = temp;
+    }
 
     @Override
     public void print() {
         System.out.println(this);
     }
-
-
 }

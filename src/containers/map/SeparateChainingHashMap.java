@@ -1,18 +1,20 @@
 package containers.map;
 
-import containers.Map;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
 
-public class MyHashMap<K extends Number, V> implements Map<K, V> {
+public class SeparateChainingHashMap<K extends Number, V> implements Map<K, V> {
 
     private LinkedList<Entry>[] entries;
+    private static final int DEFAULT_CAPACITY = 10;
+    private int capacity;
     private int size;
 
-    public MyHashMap() {
-        this.entries = new LinkedList[5];
+
+    public SeparateChainingHashMap() {
+        this.entries = new LinkedList[DEFAULT_CAPACITY];
+        this.capacity = 10;
     }
 
     @Override
@@ -24,13 +26,17 @@ public class MyHashMap<K extends Number, V> implements Map<K, V> {
         if (bucket == null) {
             entries[index] = new LinkedList<>();
             entries[index].addLast(newEntry);
+            capacity--;
+            size++;
             return;
         }
-        if (bucket.stream().anyMatch(entry -> entry.key.equals(key))) {
-            bucket.stream().filter(entry -> entry.key.equals(key)).findFirst().map(entry -> entry.value = value);
+        if (bucket.stream().anyMatch(entry -> entry.getKey().equals(key))) {
+            bucket.stream().filter(entry -> entry.getKey().equals(key)).findFirst().orElse(newEntry).setValue(value);
             return;
         }
         bucket.addLast(newEntry);
+        capacity--;
+        size++;
     }
 
     @Override
@@ -39,8 +45,8 @@ public class MyHashMap<K extends Number, V> implements Map<K, V> {
         if (bucket == null) throw new IllegalStateException();
 
         return bucket.stream()
-                .filter(e -> e.key.equals(key))
-                .findFirst().orElseThrow(IllegalStateException::new).value;
+                .filter(e -> e.getKey().equals(key))
+                .findFirst().orElseThrow(IllegalStateException::new).getValue();
     }
 
 
@@ -48,7 +54,9 @@ public class MyHashMap<K extends Number, V> implements Map<K, V> {
     public void remove(K key) {
         var bucket = getBucket(key);
         if (bucket == null) throw new IllegalStateException();
-        if (!(bucket.removeIf(entry -> entry.key.equals(key)))) throw new IllegalStateException();
+        if (!(bucket.removeIf(entry -> entry.getKey().equals(key)))) throw new IllegalStateException();
+        capacity++;
+        size--;
     }
 
     @Override
@@ -57,31 +65,23 @@ public class MyHashMap<K extends Number, V> implements Map<K, V> {
     }
 
     @Override
+    public int capacity() {
+        return capacity;
+    }
+
+
+    @Override
     public String toString() {
         return "MyHashMap:%s".formatted(Arrays.toString(entries));
     }
 
-
     private int hash(K key) {
-        return (int) key % entries.length;
+        return (int) key % DEFAULT_CAPACITY;
     }
 
     private LinkedList<Entry> getBucket(K key) {
         return entries[hash(key)];
     }
 
-    private static class Entry<K, V> {
-        K key;
-        V value;
 
-        public Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "%s".formatted(value);
-        }
-    }
 }

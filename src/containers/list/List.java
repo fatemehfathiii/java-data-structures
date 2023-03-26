@@ -1,4 +1,6 @@
-package containers;
+package containers.list;
+
+import containers.list.linkedList.MyLinkedList;
 
 public interface List<E> {
     void add(E element);

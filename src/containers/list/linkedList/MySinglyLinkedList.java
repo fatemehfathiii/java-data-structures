@@ -1,10 +1,8 @@
-package containers.linkedList;
-
-import containers.List;
+package containers.list.linkedList;
 
 import java.util.NoSuchElementException;
 
-public class MySinglyLinkedList<E> extends MyList<E>implements List<E> {
+public class MySinglyLinkedList<E> extends MyList<E>{
 
     public void addFirst(E value) {
         var newNode = new Node<>(value);
@@ -99,6 +97,24 @@ public class MySinglyLinkedList<E> extends MyList<E>implements List<E> {
 
         prevRequestedNode.next = requestedNode.next;
         size--;
+    }
+
+    @Override
+    public void revers() {
+        if (isEmpty()) return;
+        if (first == last) return;
+
+        Node<E> prev = null;
+        var current = first;
+
+        while (current != null){
+            var next = current.next;
+
+            current.next = prev;
+            prev = current;
+            current=next;
+        }
+
     }
 
     @Override

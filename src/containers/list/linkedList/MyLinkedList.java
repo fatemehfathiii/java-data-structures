@@ -1,10 +1,11 @@
-package containers.linkedList;
+package containers.list.linkedList;
 
 import java.util.NoSuchElementException;
 
 public abstract class MyLinkedList<E> extends MyList<E> {
 
-    void remove(E element) {
+    @Override
+    public void remove(E element) {
         var requested = first.next;
         var prevRequested = first;
         while (requested != last) {
