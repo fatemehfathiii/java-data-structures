@@ -28,6 +28,7 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
         size++;
     }
 
+
     @Override
     public void add(E element) {
         addFirst(element);

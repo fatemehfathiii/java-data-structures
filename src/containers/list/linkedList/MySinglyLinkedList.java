@@ -114,7 +114,6 @@ public class MySinglyLinkedList<E> extends MyList<E>{
             prev = current;
             current=next;
         }
-
     }
 
     @Override
