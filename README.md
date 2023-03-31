@@ -5,7 +5,7 @@
  <sub>In this project, we study Java data structures and want to know what problem each has solved in data storage.
  We try to implement each of them along with their most useful methods. let's start with Array List !</sub>
  
-                                                                   a) ArrayLis
+                                                             a) ArrayLis
 
 **•	Introduction :**
 
@@ -52,7 +52,7 @@
 <sub>* Searching takes O(n) time for an unsorted array and O(log n) for a sorted one</sub>
 
 
-                                                               b) LinkedList
+                                                              b) LinkedList
   
 
 **• what is linked list ?**
@@ -115,6 +115,79 @@ Cannot provide any significant benefits on a small dataset<sub>
 <sub>* Random access takes O(n) time</sub> 
 
 <sub>* Searching takes O(n) time </sub>
+
+                                                          c) map
+
+
+**• introduction :**
+
+<sub>A map (dictionary) is a data structure that associates each key with a corresponding value. Keys and values can be of any data type, providing more flexibility for data access than array indices and improved performance.<sub>
+
+**• map Interface in Java**
+
+<sub>The map interface is present in java.util package represents a mapping between a key and a value. The Map interface is not a subtype of the Collection interface. Therefore it behaves a bit differently from the rest of the collection types. A map contains unique keys.<sub>
+
+**• why and when to use Maps?**
+
+<sub>Maps are perfect to use for key-value association mapping such as dictionaries. The maps are used to perform lookups by keys or when someone wants to retrieve and update elements by keys. Some common scenarios are as follows: 
+
+<sub>* A map of error codes and their descriptions.<sub>
+<sub>* A map of zip codes and cities.<sub>
+<sub>* A map of managers and employees. Each manager (key) is associated with a list of employees (value) he manages.<sub>
+<sub>* A map of classes and students. Each class (key) is associated with a list of students (value).<sub><sub>
+
+<sub>Since Map is an interface, objects cannot be created of the type map. We always need a class that extends this map in order to create an object. And also, after the introduction of Generics in Java 1.5, it is possible to restrict the type of object that can be stored in the Map.
+A Map cannot contain duplicate keys and each key can map to at most one value. Some implementations allow null key and null values like the HashMap and LinkedHashMap, but some do not like the TreeMap.
+The order of a map depends on the specific implementations. For example, TreeMap and LinkedHashMap have predictable orders, while HashMap does not.
+There are two interfaces for implementing Map in java. They are Map and SortedMap, and three classes: HashMap, TreeMap, and LinkedHashMap.<sub>
+
+**•  Classes that implement the Map interface are   described  as follows:**
+
+**- Class 1: HashMap** 
+
+<sub>HashMap is a part of Java’s collection since Java 1.2. It provides the basic implementation of the Map interface of Java. It stores the data in (Key, Value) pairs. To access a value one must know its key. This class uses a technique called Hashing.Hashing is a technique or process of mapping keys, and values into the hash table by using a hash function. It is done for faster access to elements. The efficiency of mapping depends on the efficiency of the hash function used.<sub>
+
+**- Class 2: LinkedHashMap**
+<sub>LinkedHashMap is just like HashMap with an additional feature of maintaining an order of elements inserted into it. HashMap provided the advantage of quick insertion, search, and deletion but it never maintained the track and order of insertion which the LinkedHashMap provides where the elements can be accessed in their insertion order. Let’s see how to create a map object using this class.<sub>
+
+**- Class 3: TreeMap**
+<sub>The TreeMap in Java is used to implement the Map interface and NavigableMap along with the Abstract Class. The map is sorted according to the natural ordering of its keys, or by a Comparator provided at map creation time, depending on which constructor is used. This proves to be an efficient way of sorting and storing the key-value pairs. The storing order maintained by the treemap must be consistent with equals just like any other sorted map, irrespective of the explicit comparators. Let’s see how to create a map object using this class.<sub>
+
+**•  Advantages add disadvantage of HashMap**
+
+<sub>+Allows insertion of key value pair.<sub>
+
+<sub>+HashMap is non synchronized.HashMap cannot be shared between multiple threads without proper synchronization.<sub>
+
+<sub>+HashMap is a fail-fast iterator.<sub>
+
+<sub>+Faster access of elements due to hashing technology.<sub>
+
+<sub>-Potential of collision when 2 distinct keys generate the same hashCode() value worse the performance of the hashMap.<sub>
+
+<sub>-Occasionally HashMap requires resizing when the original size of HashMap buckets is full. Resizing takes O(n) time as the elements from the previous hashtable/HashMap are transferred to a new bigger HashMap.<sub>
+
+<sub>-Hash tables do not, generally, preserve ordering -- be it natural ordering or order of insertion. (Those that do typically employ a parallel structure to maintain the ordering, or else perform a relatively expensive sort at the time of iteration.)<sub>
+
+**•  Advantages add disadvantage of LinkedHashMap**
+
+<sub>+Manintains insertion order.<sub>
+
+<sub>+Faster iteration with LinkedHashMap.<sub>
+
+<sub>-Slower than HashMap for adding and removing elements.<sub>
+
+**•  Advantages of TreeMap**
+
+<sub>+TreeMap stores key-value pairs in a sorted ascending order(based on the key).<sub>
+
+<sub>+Lets you define a custom sort order<sub>
+
+<sub>+The retrieval speed of an element out of a TreeMap is fast, even in a TreeMap with a large number of elements.<sub>
+
+
+
+
 
 
 
