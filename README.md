@@ -188,6 +188,154 @@ There are two interfaces for implementing Map in java. They are Map and SortedMa
 
 
 
+                                                               d) Set
+
+
+**• introduction :**
+
+<sub>A set is a data structure that can store any number of unique values in any order you so wish. Set’s are different from arrays in the sense that they only allow non-repeated, unique values within them.<sub>
+
+
+**• map Interface in Java :**
+
+<sub>Set is a data structure that is used as a collection of objects. Java supports it through its Java Collection library. The set interface is present in java.util package and extends the Collection interface. It is an unordered collection of objects in which duplicate values cannot be stored. It is an interface that implements the mathematical set. This interface contains the methods inherited from the Collection interface and adds a feature that restricts the insertion of the duplicate elements. There are two interfaces that extend the set implementation namely SortedSet and NavigableSet.<sub>
+
+<sub>There are several ways to implement a set and Java supports three different implementations along with useful operations like intersection between sets.<sub>
+
+<sub>1) HashSet: using a hash map behind the set<sub>
+
+<sub>2)TreeSet: using a tree behind the set<sub>
+
+<sub>3)LinkedHashSet: using a linked list as a collison management technique in the hash map which is used behind the set<sub>
+
+**•Key ideas :**
+
+<sub>*A set is a collection of objects like integers<sub>
+
+<sub>*It allows insertion of elements in the set and to search an element<sub>
+
+<sub>*Java set is an interface which extends collection.<sub>
+
+<sub>*set can not contain duplicate elements .<sub>
+
+<sub>*Java Set allow at most one null value.<sub>
+
+**1) HashSat :**
+<sub>The HashSet class implements the Set interface, backed by a hash table which is actually a HashMap instance. No guarantee is made as to the iteration order of the set which means that the class does not guarantee the constant order of elements over time. This class permits the null element. The class also offers constant time performance for the basic operations like add, remove, contains, and size assuming the hash function disperses the elements properly among the buckets, which we shall see further in the article.<sub>
+
+**•A few important features of HashSet are :**
+
+<sub>* Implements Set Interface.<sub>
+
+<sub>* The underlying data structure for HashSet is Hashtable.<sub>
+
+<sub>* As it implements the Set Interface, duplicate values are not allowed.<sub>
+
+<sub>* Objects that you insert in HashSet are not guaranteed to be inserted in the same order. Objects are inserted based on their hash code.<sub>
+
+<sub>* NULL elements are allowed in HashSet.<sub>
+
+<sub>*HashSet also implements Serializable and Cloneable interfaces.<sub>
+
+
+<sub>Now for the maintenance of constant time performance, iterating over HashSet requires time proportional to the sum of the HashSet instance’s size (the number of elements) plus the “capacity” of the backing HashMap instance (the number of buckets). Thus, it’s very important not to set the initial capacity too high (or the load factor too low) if iteration performance is important.<sub>
+
+ 
+**Initial Capacity :**
+<sub>The initial capacity means the number of buckets when hashtable (HashSet internally uses hashtable data structure) is created. The number of buckets will be automatically increased if the current size gets full.<sub> 
+ 
+**Load Factor :**
+<sub>The load factor is a measure of how full the HashSet is allowed to get before its capacity is automatically increased. When the number of entries in the hash table exceeds the product of the load factor and the current capacity, the hash table is rehashed (that is, internal data structures are rebuilt) so that the hash table has approximately twice the number of buckets.<sub>
+
+
+**Effect on performance :** 
+
+<sub>Load factor and initial capacity are two main factors that affect the performance of HashSet operations. A load factor of 0.75 provides very effective performance with respect to time and space complexity. If we increase the load factor value more than that then memory overhead will be reduced (because it will decrease internal rebuilding operation) but, it will affect the add and search operation in the hashtable. To reduce the rehashing operation we should choose initial capacity wisely. If the initial capacity is greater than the maximum number of entries divided by the load factor, no rehash operation will ever occur.<sub>
+
+
+**Internal working of a HashSet :**
+
+<sub>All the classes of Set interface are internally backed up by Map. HashSet uses HashMap for storing its object internally. You must be wondering that to enter a value in HashMap we need a key-value pair, but in HashSet, we are passing only one value. Storage in HashMap: Actually the value we insert in HashSet acts as a key to the map Object and for its value, java uses a constant variable. So in the key-value pair, all the values will be the same.<sub>
+
+
+**2)LinkedHashSet :**
+
+<sub>The LinkedHashSet is an ordered version of HashSet that maintains a doubly-linked List across all elements. When the iteration order is needed to be maintained this class is used. When iterating through a HashSet the order is unpredictable, while a LinkedHashSet lets us iterate through the elements in the order in which they were inserted. When cycling through LinkedHashSet using an iterator, the elements will be returned in the order in which they were inserted<sub>
+
+**3)TreeSet :**
+<sub>TreeSet provides an implementation of the SortedSet Interface and SortedSet extends Set Interface. It behaves like simple set with the exception that it stores elements in sorted format.<sub>
+
+<sub>* TreeSet uses tree data structure for storage.<sub>
+
+<sub>* Objects are stored in sorted, ascending order. But we can iterate in descending order using method TreeSet.descendingIterator().<sub>
+
+<sub>* Access and retrieval times are very fast which make TreeSet an excellent choice for storage of large volume of data in sorted format.<sub>
+
+<sub>* TreeSet doesn’t use hashCode() and equals() methods to compare it’s elements. It uses compare() (or compareTo()) method to determine the equality of two elements.<sub>
+
+**4)EnumSet :**
+
+<sub>The EnumSet is one of the specialized implementations of the Set interface for use with the enumeration type.<sub>
+
+<sub>* It extends AbstractSet class and implements Set Interface in Java.<sub>
+
+<sub>* EnumSet class is a member of the Java Collections Framework & is not synchronized.<sub>
+
+<sub>* It’s a high-performance set implementation, much faster than HashSet.<sub>
+
+<sub>* All of the elements in an EnumSet must come from a single enumeration type that is specified when the set is created either explicitly or implicitly.<sub>
+
+<sub>* It does not allow null Objects and throws NullPointerException if we do so.<sub>
+
+<sub>* It uses a fail-safe iterator, so it won’t throw ConcurrentModificationException if the collection is modified while iterating.<sub><sub>
+
+**Benefits of using EnumSet :**
+
+<sub>Due to its implementation using RegularEnumSet and JumboEnumSet, all the methods in an EnumSet are implemented using bitwise arithmetic operations.<sub>
+
+<sub>EnumSet is faster than HashSet because we no need to compute any hashCode to find the right bucket.<sub>
+
+<sub>The computations are executed in constant time and the space required is very little.<sub>
+
+
+**•	The time complexity of various operations :**
+
+
+**HashSet**
+
+<sub>HashSet add method have constant time complexity O(1).<sub>
+
+<sub>HashSet remove method have constant time complexity O(1).<sub>
+
+
+**LinkedHashSet**
+
+<sub>LinkedHashSet add method have constant time complexity O(1).<sub>
+
+<sub>LinkedHashSet remove method have constant time complexity O(1).<sub>
+
+
+**TreeSet**
+
+<sub>TreeSet add method have constant time complexity O(log(n)).<sub>
+
+<sub>TreeSet remove method have constant time complexity O(log(n)).<sub>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
