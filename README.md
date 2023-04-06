@@ -129,12 +129,15 @@ Cannot provide any significant benefits on a small dataset<sub>
 
 **• why and when to use Maps?**
 
-<sub>Maps are perfect to use for key-value association mapping such as dictionaries. The maps are used to perform lookups by keys or when someone wants to retrieve and update elements by keys. Some common scenarios are as follows: 
+<sub>Maps are perfect to use for key-value association mapping such as dictionaries. The maps are used to perform lookups by keys or when someone wants to retrieve and update elements by keys. Some common scenarios are as follows:<sub>
 
 <sub>* A map of error codes and their descriptions.<sub>
+
 <sub>* A map of zip codes and cities.<sub>
+
 <sub>* A map of managers and employees. Each manager (key) is associated with a list of employees (value) he manages.<sub>
-<sub>* A map of classes and students. Each class (key) is associated with a list of students (value).<sub><sub>
+
+<sub>* A map of classes and students. Each class (key) is associated with a list of students (value).<sub>
 
 <sub>Since Map is an interface, objects cannot be created of the type map. We always need a class that extends this map in order to create an object. And also, after the introduction of Generics in Java 1.5, it is possible to restrict the type of object that can be stored in the Map.
 A Map cannot contain duplicate keys and each key can map to at most one value. Some implementations allow null key and null values like the HashMap and LinkedHashMap, but some do not like the TreeMap.
@@ -322,20 +325,81 @@ There are two interfaces for implementing Map in java. They are Map and SortedMa
 <sub>TreeSet remove method have constant time complexity O(log(n)).<sub>
 
 
+                                                             e)stack
+                                                             
+                                                             
+**• introduction :**
+
+<sub>A stack is a simple linear data structure used for storing data. Stack follows the LIFO(Last In First Out) strategy that states that the element that is inserted last will come out first. You can take a pile of plates kept on top of each other as a real-life example. The plate we put last is on the top and since we remove the plate at the top, we can say that the plate that was put last comes out first.  It can be implemented through an array or linked lists.<sub>
+
+**• map Interface in Java :**
+
+<sub>In Java, Stack is a class that falls under the Collection framework that extends the Vector class. It also implements interfaces List, Collection, Iterable, Cloneable, and Serializable. It represents the LIFO stack of objects. Before using the Stack class, we must import the Java. util package. <sub>
+
+**• Types of Stacks :**
+
+**Register Stack :**
+
+<sub>This type of stack is also a memory element present in the memory unit and can handle a small amount of data only. The height of the register stack is always limited as the size of the register stack is very small compared to the memory.<sub>
+
+**Memory Stack :**
+
+<sub>This type of stack can handle a large amount of memory data. The height of the memory stack is flexible as it occupies a large amount of memory data<sub>
+
+**• What is meant by Top of the Stack ?**
+
+<sub>When a new element is added to the stack, it is placed on top of the existing elements. Similarly, when an element is removed from the stack, the topmost element is removed first. The top of the stack is always the element that is currently accessible for viewing or manipulation.
+The pointer through which the elements are accessed, inserted, and deleted in the stack is called the top of the stack. It is the pointer to the topmost element of the stack.<sub>
+
+
+**•Application of Stack Data Structure :**
+
+**Function calls and recursion :**
+<sub>When a function is called, the current state of the program is pushed onto the stack. When the function returns, the state is popped from the stack to resume the previous function’s execution.<sub>
+
+**Undo/Redo operations :**
+<sub>The undo-redo feature in various applications uses stacks to keep track of the previous actions. Each time an action is performed, it is pushed onto the stack. To undo the action, the top element of the stack is popped, and the reverse operation is performed.<sub>
+
+**Expression evaluation :**
+<sub>Stack data structure is used to evaluate expressions in infix, postfix, and prefix notations. Operators and operands are pushed onto the stack, and operations are performed based on the stack’s top elements.<sub>
+
+**Browser history :**
+<sub> Web browsers use stacks to keep track of the web pages you visit. Each time you visit a new page, the URL is pushed onto the stack, and when you hit the back button, the previous URL is popped from the stack.<sub> 
+
+**Balanced Parentheses :**
+<sub>Stack data structure is used to check if parentheses are balanced or not. An opening parenthesis is pushed onto the stack, and a closing parenthesis is popped from the stack. If the stack is empty at the end of the expression, the parentheses are balanced.<sub>
+
+**Backtracking Algorithms :**
+<sub>The backtracking algorithm uses stacks to keep track of the states of the problem-solving process. The current state is pushed onto the stack, and when the algorithm backtracks, the previous state is popped from the stack.<sub>
+
+
+**•Advantages of Stack :**
+
+Easy implementation: <sub>Stack data structure is easy to implement using arrays or linked lists, and its operations are simple to understand and implement.<sub>
+
+Efficient memory utilization :<sub> Stack uses a contiguous block of memory, making it more efficient in memory utilization as compared to other data structures.<sub>
+
+Fast access time :<sub> Stack data structure provides fast access time for adding and removing elements as the elements are added and removed from the top of the stack.<sub>
+
+Helps in function calls :<sub> Stack data structure is used to store function calls and their states, which helps in the efficient implementation of recursive function calls.<sub>
+Supports backtracking :<sub> Stack data structure supports backtracking algorithms, which are used in problem-solving to explore all possible solutions by storing the previous states.<sub>
+
+Used in Compiler Design:<sub> Stack data structure is used in compiler design for parsing and syntax analysis of programming languages.<sub>
+
+Enables undo/redo operations:<sub> Stack data structure is used to enable undo and redo operations in various applications like text editors, graphic design tools, and software development environments.<sub>
 
 
 
+**•Disadvantages of Stack :**
 
+Limited capacity :<sub> Stack data structure has a limited capacity as it can only hold a fixed number of elements. If the stack becomes full, adding new elements may result in stack overflow, leading to the loss of data.<sub>
 
+No random access :<sub> Stack data structure does not allow for random access to its elements, and it only allows for adding and removing elements from the top of the stack. To access an element in the middle of the stack, all the elements above it must be removed.<sub>
 
+Memory management :<sub> Stack data structure uses a contiguous block of memory, which can result in memory fragmentation if elements are added and removed frequently.<sub>
 
+Not suitable for certain applications :<sub> Stack data structure is not suitable for applications that require accessing elements in the middle of the stack, like searching or sorting algorithms.<sub>
 
+Stack overflow and underflow :<sub> Stack data structure can result in stack overflow if too many elements are pushed onto the stack, and it can result in stack underflow if too many elements are popped from the stack.<sub>
 
-
-
-
-
-
-
-
-
+Recursive function calls limitations :<sub> While stack data structure supports recursive function calls, too many recursive function calls can lead to stack overflow, resulting in the termination of the program.<sub>
