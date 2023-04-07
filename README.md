@@ -403,3 +403,124 @@ Not suitable for certain applications :<sub> Stack data structure is not suitabl
 Stack overflow and underflow :<sub> Stack data structure can result in stack overflow if too many elements are pushed onto the stack, and it can result in stack underflow if too many elements are popped from the stack.<sub>
 
 Recursive function calls limitations :<sub> While stack data structure supports recursive function calls, too many recursive function calls can lead to stack overflow, resulting in the termination of the program.<sub>
+
+
+                                                       f) queue
+
+**• introduction :**
+
+<sub>The queue is an abstract data structure, somewhat similar to Stacks. Unlike stacks, a queue is open at both ends. One end is always used to insert data (enqueue) and the other is used to remove data (dequeue). Queue follows the First-In-First-Out methodology, i.e., the data item stored first will be accessed first.
+A Queue is like a line waiting to purchase tickets, where the first person in line is the first person served. (i.e. First come first serve).
+The position of the entry in a queue ready to be served, that is, the first entry that will be removed from the queue, is called the front of the queue(sometimes, head of the queue), similarly, the position of the last entry in the queue, that is, the one most recently added, is called the rear (or the tail) of the queue.<sub>
+
+
+**• Types of Queues:**
+
+Simple Queue :<sub> Simple queue also known as a linear queue is the most basic version of a queue. Here, insertion of an element i.e. the Enqueue operation takes place at the rear end and removal of an element i.e. the Dequeue operation takes place at the front end.<sub>
+
+Circular Queue :<sub> In a circular queue, the element of the queue act as a circular ring. The working of a circular queue is similar to the linear queue except for the fact that the last element is connected to the first element. Its advantage is that the memory is utilized in a better way. This is because if there is an empty space i.e. if no element is present at a certain position in the queue, then an element can be easily added at that position.<sub>
+
+Priority Queue :<sub> This queue is a special type of queue. Its specialty is that it arranges the elements in a queue based on some priority. The priority can be something where the element with the highest value has the priority so it creates a queue with decreasing order of values. The priority can also be such that the element with the lowest value gets the highest priority so in turn it creates a queue with increasing order of values.<sub>
+
+Dequeue :<sub> Dequeue is also known as Double Ended Queue. As the name suggests double ended, it means that an element can be inserted or removed from both the ends of the queue unlike the other queues in which it can be done only from one end. Because of this property it may not obey the First In First Out property.<sub>
+
+**• Applications of Queue:**
+
+Multi programming :<sub> Multi programming means when multiple programs are running in the main memory. It is essential to organize these multiple programs and these multiple programs are organized as queues.<sub>
+
+Network :<sub> In a network, a queue is used in devices such as a router or a switch. another application of a queue is a mail queue which is a directory that stores data and controls files for mail messages.<sub>
+
+Job Scheduling :<sub> The computer has a task to execute a particular number of jobs that are scheduled to be executed one after another. These jobs are assigned to the processor one by one which is organized using a queue.<sub>
+Shared resources :<sub> Queues are used as waiting lists for a single shared resource.<sub>
+
+**• Queue Interface in Java :**
+
+<sub>The Queue implementations are grouped into general-purpose and concurrent implementations.<sub>
+
+General-Purpose Queue Implementations :
+
+<sub>As mentioned in the previous section, LinkedList implements the Queue interface, providing first in, first out (FIFO) queue operations for add, poll, and so on.
+The PriorityQueue class is a priority queue based on the heap data structure. This queue orders elements according to the order specified at construction time, which can be the elements' natural ordering or the ordering imposed by an explicit Comparator.<sub>
+
+<sub>The queue retrieval operations — poll, remove, peek, and element — access the element at the head of the queue. The head of the queue is the least element with respect to the specified ordering. If multiple elements are tied for least value, the head is one of those elements; ties are broken arbitrarily.<sub>
+
+<sub>PriorityQueue and its iterator implement all of the optional methods of the Collection and Iterator interfaces. The iterator provided in method iterator is not guaranteed to traverse the elements of the PriorityQueue in any particular order. For ordered traversal, consider using Arrays.sort(pq.toArray()).<sub>
+
+Concurrent Queue Implementations :
+
+<sub>The java.util.concurrent package contains a set of synchronized Queue interfaces and classes. BlockingQueue extends Queue with operations that wait for the queue to become nonempty when retrieving an element and for space to become available in the queue when storing an element. This interface is implemented by the following classes:<sub>
+
+LinkedBlockingQueue —<sub> an optionally bounded FIFO blocking queue backed by linked nodes<sub>
+
+ArrayBlockingQueue —<sub> a bounded FIFO blocking queue backed by an array<sub>
+
+PriorityBlockingQueue —<sub> an unbounded blocking priority queue backed by a heap<sub>
+
+DelayQueue — <sub>a time-based scheduling queue backed by a heap<sub>
+
+SynchronousQueue —<sub> a simple rendezvous mechanism that uses the BlockingQueue interface<sub>
+
+<sub>In JDK 7, TransferQueue is a specialized BlockingQueue in which code that adds an element to the queue has the option of waiting (blocking) for code in another thread to retrieve the element. TransferQueue has a single implementation:<sub>
+
+<sub>LinkedTransferQueue — an unbounded TransferQueue based on linked nodes<sub>
+
+
+**• Advantages of Queue :**
+
+<sub>A large amount of data can be managed efficiently and with ease.<sub>
+
+<sub>Operations such as insertion and deletion can be performed with ease as it follows the first in first out rule.<sub>
+
+<sub>Queues are useful when a particular service is used by multiple consumers.<sub>
+
+<sub>Queues are fast in speed for data inter-process communication.<sub>
+
+<sub>Queues can be used in the implementation of other data structures.<sub>
+
+
+
+**• Disadvantages of Queue :**
+
+<sub>The operations such as insertion and deletion of elements from the middle are time-consuming.<sub>
+
+<sub>Limited Space.<sub>
+
+<sub>In a classical queue, a new element can only be inserted when the existing elements are deleted from the queue.<sub>
+
+<sub>The maximum size of a queue must be defined prior.<sub>
+
+
+**•	The time complexity of various operations :**
+
+ <sub>enqueue take constant time i.e O(1).<sub>
+ 
+ <sub>dequeue take constant time i.e O(1).<sub>
+
+<sub>Searching for an element takes O(N) time.<sub>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
