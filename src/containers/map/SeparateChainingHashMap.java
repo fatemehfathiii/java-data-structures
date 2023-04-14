@@ -3,9 +3,7 @@ package containers.map;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-
 public class SeparateChainingHashMap<K extends Number, V> implements Map<K, V> {
-
     private LinkedList<Entry>[] entries;
     private static final int DEFAULT_CAPACITY = 10;
     private int capacity;
@@ -14,7 +12,12 @@ public class SeparateChainingHashMap<K extends Number, V> implements Map<K, V> {
 
     public SeparateChainingHashMap() {
         this.entries = new LinkedList[DEFAULT_CAPACITY];
-        this.capacity = 10;
+        this.capacity = DEFAULT_CAPACITY;
+    }
+
+    public SeparateChainingHashMap(int capacity) {
+        this.entries = new LinkedList[capacity];
+        this.capacity = capacity;
     }
 
     @Override
@@ -78,6 +81,7 @@ public class SeparateChainingHashMap<K extends Number, V> implements Map<K, V> {
     private int hash(K key) {
         return (int) key % DEFAULT_CAPACITY;
     }
+
 
     private LinkedList<Entry> getBucket(K key) {
         return entries[hash(key)];

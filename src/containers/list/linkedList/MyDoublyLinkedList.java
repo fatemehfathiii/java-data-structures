@@ -2,7 +2,9 @@ package containers.list.linkedList;
 
 import containers.list.List;
 
-public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
+import java.util.NoSuchElementException;
+
+public class MyDoublyLinkedList<E> extends MyList<E> implements List<E> {
 
     public void addFirst(E value) {
         var newNode = new Node<>(value);
@@ -54,6 +56,9 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
 
     @Override
     public void removeByIndex(int index) {
+        if (isEmpty()) throw new NoSuchElementException("list is empty!");
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+
         if (index == 0) {
             deleteFirst();
             return;
@@ -62,7 +67,21 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
             deleteLast();
             return;
         }
-        super.removeByIndex(index);
+        var step = 0;
+        var requested = first;
+        var prevRequested = first;
+
+        while (step != index) {
+            prevRequested = requested;
+            requested = requested.next;
+            step++;
+        }
+
+        prevRequested.next = requested.next;
+        requested.next.prev = prevRequested;
+        requested.next = null;
+        requested.prev = null;
+        size--;
     }
 
     @Override
@@ -73,12 +92,25 @@ public class MyDoublyLinkedList<E> extends MyLinkedList<E> implements List<E> {
             deleteFirst();
             return;
         }
-
         if (last.value == element) {
             deleteLast();
             return;
         }
-        super.remove(element);
+        var requested = first.next;
+        var prevRequested = first;
+        while (requested != last) {
+
+            if (requested.value == element) {
+                prevRequested.next = requested.next;
+                requested.next.prev = prevRequested;
+                requested.next = null;
+                requested.prev = null;
+                size--;
+                return;
+            }
+            prevRequested = requested;
+            requested = requested.next;
+        }
     }
 
     @Override

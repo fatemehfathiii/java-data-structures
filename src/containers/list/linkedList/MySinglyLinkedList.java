@@ -2,7 +2,7 @@ package containers.list.linkedList;
 
 import java.util.NoSuchElementException;
 
-public class MySinglyLinkedList<E> extends MyList<E>{
+public class MySinglyLinkedList<E> extends MyList<E> {
 
     public void addFirst(E value) {
         var newNode = new Node<>(value);
@@ -59,12 +59,10 @@ public class MySinglyLinkedList<E> extends MyList<E>{
             deleteFirst();
             return;
         }
-
         if (last.value.equals(element)) {
             deleteLast();
             return;
         }
-
         var requestedNode = first;
         var prevRequestedNode = first;
 
@@ -107,12 +105,12 @@ public class MySinglyLinkedList<E> extends MyList<E>{
         Node<E> prev = null;
         var current = first;
 
-        while (current != null){
+        while (current != null) {
             var next = current.next;
 
             current.next = prev;
             prev = current;
-            current=next;
+            current = next;
         }
     }
 
